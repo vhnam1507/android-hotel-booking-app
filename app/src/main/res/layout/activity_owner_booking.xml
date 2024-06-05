@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="#080B13"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".owner.BookingActivity">
+
+    <FrameLayout
+        android:id="@+id/framelayout_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView_booking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView_booking"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/white"
+        app:itemIconSize="32dp"
+        app:itemIconTint="@color/light_blue"
+        app:itemRippleColor="@color/green_500"
+        app:itemTextAppearanceActiveBoldEnabled="true"
+        app:itemTextAppearanceInactive="@style/TextAppearance.Material3.LabelLarge"
+        app:itemTextColor="#080B13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_booking_top_nav" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

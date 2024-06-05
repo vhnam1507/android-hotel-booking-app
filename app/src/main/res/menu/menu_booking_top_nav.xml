@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/onActi"
+        android:icon="@drawable/lightbulb_24px"
+        android:title="Đang hoạt động" />
+    <item
+        android:id="@+id/done"
+        android:icon="@drawable/done_24px"
+        android:title="Đã hoàn thành" />
+    <item
+        android:id="@+id/canceled"
+        android:icon="@drawable/cancel_24px"
+        android:title="Đã hủy" />
+</menu>

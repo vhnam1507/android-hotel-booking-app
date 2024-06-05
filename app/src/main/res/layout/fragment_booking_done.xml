@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#080B13"
+    tools:context=".fragments.BookingDoneFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lvw_completeHotel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            tools:listitem="@layout/item_hotel" />
+
+        <TextView
+            android:id="@+id/txtv_emptyIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginTop="260dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="(≥o≤)"
+            android:textColor="@color/lavender"
+            android:textSize="80sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txtv_emptyTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:fontFamily="@font/lobster"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="Trống trơn luôn!"
+            android:textColor="@color/lavender"
+            android:textSize="50sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+
+</FrameLayout>

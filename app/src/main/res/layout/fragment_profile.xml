@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".fragments.ProfileFragment"
+android:background="#ececec">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#080B13">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#080B13">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="419dp"
+                android:layout_height="230dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/top_background" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="60dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:shapeAppearanceOverlay="@style/circle"
+                app:strokeColor="@color/white"
+                app:strokeWidth="8dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/txtv_customerFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Vu Hoang Nam"
+                android:textColor="#FEFEFE"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/iv_avatar"
+                app:layout_constraintStart_toStartOf="@+id/iv_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
+
+            <TextView
+                android:id="@+id/txtv_customerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test@gmail.com"
+                android:textColor="#E8FBFF"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/txtv_customerFullName"
+                app:layout_constraintStart_toStartOf="@+id/txtv_customerFullName"
+                app:layout_constraintTop_toBottomOf="@+id/txtv_customerFullName" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtv_customerEmail">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_myReview"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_background_1"
+                    android:drawableStart="@drawable/reviews_24px"
+                    android:drawablePadding="30dp"
+                    android:drawableTint="@color/Dark"
+                    android:paddingStart="20dp"
+                    android:text="Đánh giá của tôi"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/Dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_accountSetting"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_background_1"
+                    android:drawableStart="@drawable/manage_accounts_24px"
+                    android:drawablePadding="20dp"
+                    android:drawableTint="@color/Dark"
+                    android:paddingStart="20dp"
+                    android:text="Cài đặt tài khoản"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/Dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_logout"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_background_1"
+                    android:drawableStart="@drawable/manage_accounts_24px"
+                    android:drawablePadding="20dp"
+                    android:drawableTint="@color/Dark"
+                    android:paddingStart="20dp"
+                    android:text="Đăng xuất"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/Dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_backToSearchPage"
+                    style="@android:style/Widget.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@drawable/btn_background_2"
+                    android:backgroundTint="@color/lavender"
+                    android:text="Trở lại trang chủ"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

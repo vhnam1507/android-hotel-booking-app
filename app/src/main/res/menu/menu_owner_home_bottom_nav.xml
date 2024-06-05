@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/owner_dashboard"
+        android:icon="@drawable/dashboard_24px"
+        android:title="Tìm kiếm" />
+    <item
+        android:id="@+id/owner_bookings"
+        android:icon="@drawable/night_shelter_24px"
+        android:title="Đặt chỗ" />
+    <item
+        android:id="@+id/owner_profile"
+        android:icon="@drawable/account_circle_24px"
+        android:title="Hồ sơ của tôi" />
+</menu>

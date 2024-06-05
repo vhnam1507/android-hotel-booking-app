@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@color/Dark"
+tools:context=".owner.HotelDetailActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etxt_editHotelName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:hint="@string/hotel_name"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/white"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/etxt_editHotelAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:hint="@string/hotel_address"
+        android:inputType="textPostalAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinner_editProv"
+        android:layout_width="377dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textViewSelectImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="@string/select_images"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_editImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:nestedScrollingEnabled="false"
+        tools:listitem="@layout/item_image" />
+
+    <Button
+        android:id="@+id/btn_editImageSelecting"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/green_500"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Chọn ảnh"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="@string/amenities"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBoxeditPool"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:text="@string/pool"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxeditWifi"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:text="@string/wifi"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxeditTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text="TV"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxedit24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:text="24/7"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <!-- Add more CheckBoxes for other amenities as needed -->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewNumRooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Số lượng phòng"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinner_editNumRooms"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
+        android:entries="@array/guest_numbers" />
+
+    <TextView
+        android:id="@+id/txtv_editMaxGuests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Sức chứa"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinner_editMaxGuests"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
+        android:entries="@array/guest_numbers" />
+
+    <TextView
+        android:id="@+id/textViewprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:gravity="right"
+        android:text="Giá phòng mỗi đêm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/green_200"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/textViewvnd"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/fira_sans_bold"
+            android:gravity="center"
+            android:text="VND"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/green_200"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/etxt_editPrice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:fontFamily="@font/fira_sans_bold"
+            android:gravity="right"
+            android:hint="VND"
+            android:inputType="text"
+            android:textColor="@color/lavender"
+            android:textColorHint="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_editHotel"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="?android:attr/colorActivatedHighlight"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Hoàn tất chỉnh sửa"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_deleteHotel"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#DC0808"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Xoá khách sạn này"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <ListView
+        android:id="@+id/lvw_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        tools:listitem="@layout/item_review" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>
+</ScrollView>

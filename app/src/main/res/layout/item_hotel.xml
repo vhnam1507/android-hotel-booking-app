@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:layout_marginBottom="10dp">
+
+
+        <ImageView
+            android:id="@+id/imgvw_cover"
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@drawable/_004365" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="4">
+
+            <TextView
+                android:id="@+id/tv_hotelname"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/fira_sans_bold"
+                android:text="Tên khách sạn nằm ở đây"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_rate"
+                    android:layout_width="69dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Rate" />
+
+                <TextView
+                    android:id="@+id/tv_totalrate"
+                    android:layout_width="197dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="3"
+                    android:fontFamily="@font/fira_sans_medium"
+                    android:text="Số lượng rate" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/fira_sans_light"
+                    android:text="Địa chỉ nằm đây"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center|end"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/fira_sans_bold"
+                    android:gravity="center|right"
+                    android:text="VND 100.000/Đêm"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_extra"
+                    android:layout_width="match_parent"
+                    android:layout_height="74dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/fira_sans_bold"
+                    android:gravity="center|right"
+                    android:text="TextView"
+                    android:textColor="@color/green_500"
+                    android:textSize="16sp" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

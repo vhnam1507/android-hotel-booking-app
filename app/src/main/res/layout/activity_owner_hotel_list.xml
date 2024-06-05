@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#080B13"
+tools:context=".owner.HotelListActivity">
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/fabtn_add"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="28dp"
+    android:layout_marginBottom="52dp"
+    android:clickable="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:srcCompat="@drawable/add_location_alt_24px" />
+
+<ListView
+    android:id="@+id/lvw_ownerhotels"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="#080B13"
+    android:cacheColorHint="#F3E5E5"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+    app:layout_constraintVertical_bias="0.0"
+    tools:listitem="@layout/item_hotel">
+
+</ListView>
+    <TextView
+        android:id="@+id/txtv_emptyIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(≥o≤)"
+        android:textColor="@color/lavender"
+        android:textSize="80sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lvw_ownerhotels"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <TextView
+        android:id="@+id/txtv_emptyTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lobster"
+        android:text="Trống trơn luôn!"
+        android:textColor="@color/lavender"
+        android:textSize="50sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtv_emptyIcon" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="61dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        android:weightSum="11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_backToOwnerHome"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:backgroundTint="#FEFEFE"
+            app:icon="@drawable/ic_arrow_back_black_24dp"
+            app:iconGravity="textStart"
+            app:iconSize="35dp"
+            app:iconTint="@color/Dark" />
+
+        <SearchView
+            android:id="@+id/sv_searchview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:iconifiedByDefault="false"
+            android:queryHint="Duyệt danh sách khách sạn của bạn"
+            android:searchHintIcon="@drawable/search_24px"
+            android:searchIcon="@drawable/search_24px" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

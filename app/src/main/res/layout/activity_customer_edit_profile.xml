@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Dark"
+    tools:context=".customer.EditProfileActivity">
+
+    <EditText
+        android:id="@+id/etxt_customerEmailAddress"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:fontFamily="@font/fira_sans_bold"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/light_blue"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileB" />
+
+    <EditText
+        android:id="@+id/etxt_customerFullName"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="119dp"
+        android:ems="10"
+        android:fontFamily="@font/fira_sans_bold"
+        android:hint="Họ tên đầy đủ"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/light_blue"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxt_customerEmailAddress" />
+
+    <EditText
+        android:id="@+id/etxt_customerPhone"
+        android:layout_width="380dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="119dp"
+        android:ems="10"
+        android:fontFamily="@font/fira_sans_bold"
+        android:hint="Số điện thoại"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="@color/light_blue"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxt_customerFullName" />
+
+    <ImageButton
+        android:id="@+id/profileB"
+        android:layout_width="0dp"
+        android:layout_height="202dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/account_circle_24px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.114"
+        app:tint="@color/lavender" />
+
+    <Button
+        android:id="@+id/btn_customer_saveInfo"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="377dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="@color/lavender"
+        android:text="Lưu thông tin"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_customer_changePassword" />
+
+    <Button
+        android:id="@+id/btn_customer_backToHome"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="377dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/Cold_Blue"
+        android:text="Trở về trang chủ"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_customer_saveInfo" />
+
+    <Button
+        android:id="@+id/btn_customer_changePassword"
+        android:layout_width="377dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/Dark"
+        android:foregroundGravity="left"
+        android:gravity="start"
+        android:paddingLeft="0dp"
+        android:text="Đổi mật khẩu"
+        app:iconGravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxt_customerPhone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

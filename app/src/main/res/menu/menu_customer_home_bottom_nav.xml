@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/customer_search"
+        android:icon="@drawable/travel_explore_24px"
+        android:title="Tìm kiếm" />
+    <item
+        android:id="@+id/customer_saved"
+        android:icon="@drawable/collections_bookmark_24px"
+        android:title="Đã lưu" />
+    <item
+        android:id="@+id/customer_bookings"
+        android:icon="@drawable/night_shelter_24px"
+        android:title="Đặt chỗ" />
+    <item
+        android:id="@+id/customer_profile"
+        android:icon="@drawable/account_circle_24px"
+        android:title="Hồ sơ của tôi" />
+</menu>

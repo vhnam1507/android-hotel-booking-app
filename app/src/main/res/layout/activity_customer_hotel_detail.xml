@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/main"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@color/Dark"
+tools:context=".customer.HotelDetailActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtv_hotelName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:paddingBottom="10dp"
+        android:text="Tên khách sạn"
+        android:textColor="#8DD6F8"
+        android:textSize="28sp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Địa chỉ khách sạn:"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:gravity="end"
+        android:text="Địa chỉ chi tiết"
+        android:textColor="@color/green_200"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Thuộc địa phận:"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelProvince"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fira_sans_bold"
+        android:gravity="end"
+        android:text="Tỉnh"
+        android:textColor="@color/green_200"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/textViewSelectImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Hình ảnh mô tả:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_editImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:nestedScrollingEnabled="false"
+        tools:listitem="@layout/item_image" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="@string/amenities"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkBoxeditPool"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clickable="false"
+            android:gravity="top"
+            android:text="@string/pool"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxeditWifi"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clickable="false"
+            android:gravity="top"
+            android:text="@string/wifi"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxeditTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:gravity="top"
+            android:text="TV"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxedit24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:gravity="top"
+            android:text="24/7"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp" />
+
+        <!-- Add more CheckBoxes for other amenities as needed -->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Số lượng phòng:"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelNumRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fira_sans"
+        android:gravity="end"
+        android:text="phòng"
+        android:textColor="#EFD687"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Sức chứa mỗi phòng:"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelMaxGuest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fira_sans"
+        android:gravity="end"
+        android:text="người/phòng"
+        android:textColor="#EFD687"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:gravity="right"
+        android:text="Giá phòng mỗi đêm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/green_200"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:id="@+id/textViewvnd"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/fira_sans_bold"
+            android:gravity="center"
+            android:text="VND"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/green_200"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtv_price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:fontFamily="@font/fira_sans_bold"
+            android:gravity="right"
+            android:hint="VND"
+            android:inputType="text"
+            android:textColor="#5AFAE1"
+            android:textColorHint="@color/white"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/fira_sans_bold"
+        android:paddingTop="10dp"
+        android:text="Quản lý khách sạn:"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelOwnerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Họ tên:"
+        android:textColor="@color/lavender"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelOwnerEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/fira_sans"
+        android:text="Số điện thoại:"
+        android:textColor="@color/lavender"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtv_hotelOwnerPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/fira_sans"
+        android:text="Email:"
+        android:textColor="@color/lavender"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_saveHotel"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#34B88A"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Lưu khách sạn"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_unsaveHotel"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#DC5454"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Bỏ lưu khách sạn"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_bookHotel"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/lavender"
+        android:fontFamily="@font/fira_sans_bold"
+        android:text="Đặt phòng"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <ListView
+        android:id="@+id/lvw_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        tools:listitem="@layout/item_review" />
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>
+</ScrollView>
