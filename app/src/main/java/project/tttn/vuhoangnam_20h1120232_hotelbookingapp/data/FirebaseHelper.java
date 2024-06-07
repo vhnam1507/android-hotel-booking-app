@@ -1023,6 +1023,37 @@ public class FirebaseHelper {
         });
     }
 
+    // Phương thức kiểm tra review tồn tại
+    public void isReviewDuplicate(String bookingId, String userMail, final ReviewCheckCallback callback) {
+        mReferenceReviews.orderByChild("bookingId").equalTo(bookingId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isDuplicate = false;
+                for (DataSnapshot reviewSnapshot : dataSnapshot.getChildren()) {
+                    String reviewerId = reviewSnapshot.child("userMail").getValue(String.class);
+                    if (userMail.equals(reviewerId)) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                callback.onCallback(isDuplicate);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onError(databaseError.toException());
+            }
+        });
+    }
+
+    // Callback interface for review check
+    public interface ReviewCheckCallback {
+        void onCallback(boolean isDuplicate);
+        void onError(Exception e);
+    }
+
+
+
     public interface ReviewAddCallback {
         void onSuccess();
         void onFailure(Exception e);

@@ -97,7 +97,18 @@ public class BookingDetailActivity extends AppCompatActivity {
         String bookingId = intent.getStringExtra("bookingId");
         final String[] status = new String[1]; // Khai báo biến status là final mảng String
 
+        CurrentUserManager currentUserManager = CurrentUserManager.getInstance();
+        String priceFormat = formatCurrency(selectedHotel.getPrice());
+
+        txtv_guestName.setText(currentUserManager.getUserFullName());
+        txtv_guestEmail.setText(currentUserManager.getUserEmail());
+        txtv_guestPhone.setText(currentUserManager.getUserPhone());
+        txtv_hotelName.setText(selectedHotel.getName());
+        txtv_hotelAddress.setText(selectedHotel.getAddress());
+        txtv_price.setText(priceFormat);
+
         firebaseHelper = new FirebaseHelper();
+
         firebaseHelper.getBookingById(bookingId, new FirebaseHelper.BookingCallback() {
             @Override
             public void onSuccess(Booking booking) {
@@ -141,7 +152,24 @@ public class BookingDetailActivity extends AppCompatActivity {
                     btn_confirmBooking.setVisibility(View.GONE);
                     btn_completeBooking.setVisibility(View.GONE);
                     btn_cancelBooking.setVisibility(View.GONE);
-                    btn_reviewBooking.setVisibility(View.VISIBLE);
+                    firebaseHelper.isReviewDuplicate(bookingId, currentUserManager.getUserEmail(), new FirebaseHelper.ReviewCheckCallback() {
+                        @Override
+                        public void onCallback(boolean isDuplicate) {
+                            if (isDuplicate) {
+                                // Handle the case where the review is a duplicate
+                                btn_reviewBooking.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(), "You have already reviewed this booking.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                btn_reviewBooking.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        @Override
+                        public void onError(Exception e) {
+                            // Handle error
+                            Toast.makeText(getApplicationContext(), "Error checking for duplicate review: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 } else if (Objects.equals(status, "requestCancel")) {
                     txtv_bookingStatus.setText("Yêu cầu huỷ");
                     txtv_bookingStatus.setTextColor(getResources().getColor(R.color.yellow));
@@ -165,18 +193,6 @@ public class BookingDetailActivity extends AppCompatActivity {
             }
         });
 
-
-        CurrentUserManager currentUserManager = CurrentUserManager.getInstance();
-        String priceFormat = formatCurrency(selectedHotel.getPrice());
-
-        txtv_guestName.setText(currentUserManager.getUserFullName());
-        txtv_guestEmail.setText(currentUserManager.getUserEmail());
-        txtv_guestPhone.setText(currentUserManager.getUserPhone());
-        txtv_hotelName.setText(selectedHotel.getName());
-        txtv_hotelAddress.setText(selectedHotel.getAddress());
-        txtv_price.setText(priceFormat);
-
-        firebaseHelper = new FirebaseHelper();
         firebaseHelper.getProvinceNameById(selectedHotel.getProvinceID(), new FirebaseHelper.ProvinceNameCallback() {
             @Override
             public void onCallback(String provinceName) {
