@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileB" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
 
     <EditText
         android:id="@+id/etxt_ownerFullName"
@@ -61,21 +61,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etxt_ownerFullName" />
 
-    <ImageButton
-        android:id="@+id/profileB"
-        android:layout_width="0dp"
-        android:layout_height="202dp"
-        android:background="?attr/selectableItemBackground"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:padding="8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/account_circle_24px"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.114"
-        app:tint="@color/green_200" />
+        app:shapeAppearanceOverlay="@style/circle"
+        app:strokeColor="@color/green_200"
+        app:strokeWidth="5dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/btn_owner_saveInfo"

@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.firebase.FirebaseApp;
-
 import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.authen.LoginActivity;
+import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.data.FirebaseHelper;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -29,14 +29,16 @@ public class IntroActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_intro);
 
-
-
         // Kiểm tra và yêu cầu quyền truy cập vào bộ nhớ
         checkAndRequestStoragePermission();
 
+        // Cập nhật trạng thái của các booking đã hết hạn
+        FirebaseHelper firebaseHelper = new FirebaseHelper();
+        firebaseHelper.updateExpiredBookings();
+
         // Chuyển sang LoginActivity sau khi thời gian INTRO_DELAY đã qua
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent loginIntent = new Intent(IntroActivity.this, project.tttn.vuhoangnam_20h1120232_hotelbookingapp.authen.LoginActivity.class);
+            Intent loginIntent = new Intent(IntroActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();
         }, INTRO_DELAY);

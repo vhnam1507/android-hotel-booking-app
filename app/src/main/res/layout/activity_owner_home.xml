@@ -99,19 +99,20 @@ tools:context=".owner.HomeActivity">
             app:layout_constraintTop_toBottomOf="@+id/txtv_ownerEmail"
             tools:ignore="MissingConstraints" />
 
-        <ImageButton
-            android:id="@+id/profileB"
-            android:layout_width="93dp"
-            android:layout_height="86dp"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackground"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:padding="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/account_circle_24px"
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/green_200" />
+            app:shapeAppearanceOverlay="@style/circle"
+            app:strokeColor="@color/green_200"
+            app:strokeWidth="5dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

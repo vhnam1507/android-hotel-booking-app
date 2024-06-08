@@ -11,12 +11,14 @@ public class Hotel {
     private int numMaxGuest;
     private String amenities;
     private int price;
+    private int numReviews; // Số lượng đánh giá
+    private double rate; // Xếp hạng trung bình
 
     // Constructors
     public Hotel() {
     }
 
-    public Hotel(String id, String ownerId, String name,String address, String provinceID, String amenities,String imageUrls, int numRooms, int numMaxGuest, int price) {
+    public Hotel(String id, String ownerId, String name, String address, String provinceID, String amenities, String imageUrls, int numRooms, int numMaxGuest, int price, int numReviews, double rate) {
         this.id = id;
         this.ownerId = ownerId;
         this.name = name;
@@ -27,6 +29,8 @@ public class Hotel {
         this.numMaxGuest = numMaxGuest;
         this.amenities = amenities;
         this.price = price;
+        this.numReviews = numReviews;
+        this.rate = rate;
     }
 
     public Hotel(String ownerId, String name, String address, String provinceID, String amenities, String imageUrls, int price) {
@@ -37,6 +41,8 @@ public class Hotel {
         this.imageUrls = imageUrls;
         this.amenities = amenities;
         this.price = price;
+        this.numReviews = 0; // Ban đầu số lượng đánh giá là 0
+        this.rate = 0.0; // Ban đầu xếp hạng là 0.0
     }
 
     // Getter and setter methods
@@ -120,5 +126,19 @@ public class Hotel {
         this.amenities = amenities;
     }
 
-}
+    public int getNumReviews() {
+        return numReviews;
+    }
 
+    public void setNumReviews(int numReviews) {
+        this.numReviews = numReviews;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+}

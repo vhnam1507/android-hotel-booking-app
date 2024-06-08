@@ -54,14 +54,23 @@ public class ProfileFragment extends Fragment {
         txtv_customerFullname.setText(currentUserManager.getUserFullName());
         txtv_customerEmail.setText(currentUserManager.getUserEmail());
 
-        Picasso.get()
-                .load(Uri.parse(currentUserManager.getAvatarUrl()))
-                .placeholder(R.drawable.app) // Placeholder image
-                .error(R.drawable.app) // Error image
-                .into(iv_avatar);
+        String avatarUrl = currentUserManager.getAvatarUrl();
+        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+            Picasso.get()
+                    .load(Uri.parse(avatarUrl))
+                    .placeholder(R.drawable.app) // Placeholder image
+                    .error(R.drawable.app) // Error image
+                    .into(iv_avatar);
+        } else {
+            Picasso.get()
+                    .load(R.drawable.app) // Default image
+                    .into(iv_avatar);
+        }
+
 
         btn_myReview.setOnClickListener(v -> {
-            // Handle My Reviews button click event
+            Intent intent = new Intent(getActivity(), project.tttn.vuhoangnam_20h1120232_hotelbookingapp.customer.MyReviewActivity.class);
+            startActivity(intent);
         });
 
         btn_accountSetting.setOnClickListener(v -> {

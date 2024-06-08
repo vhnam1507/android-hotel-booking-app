@@ -39,6 +39,7 @@ android:background="#ececec">
                 android:paddingTop="5dp"
                 android:paddingRight="5dp"
                 android:paddingBottom="5dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView"

@@ -1,12 +1,14 @@
 package project.tttn.vuhoangnam_20h1120232_hotelbookingapp.customer;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Objects;
 
 import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.R;
@@ -23,6 +27,8 @@ import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.authen.CurrentUserMana
 import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.data.FirebaseHelper;
 
 public class PasswordChangeActivity extends AppCompatActivity {
+
+    private ImageView iv_avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,20 @@ public class PasswordChangeActivity extends AppCompatActivity {
         TextView etxt_customerReNewPassword = findViewById(R.id.etxt_customerReNewPassword);
         Button btn_customer_savePassword = findViewById(R.id.btn_customer_savePassword);
         Button btn_customer_backToInfo = findViewById(R.id.btn_customer_backToInfo);
+        iv_avatar = findViewById(R.id.iv_avatar);
+
+        String avatarUrl = currentUserManager.getAvatarUrl();
+        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+            Picasso.get()
+                    .load(Uri.parse(avatarUrl))
+                    .placeholder(R.drawable.app) // Placeholder image
+                    .error(R.drawable.app) // Error image
+                    .into(iv_avatar);
+        } else {
+            Picasso.get()
+                    .load(R.drawable.app) // Default image
+                    .into(iv_avatar);
+        }
 
         btn_customer_savePassword.setOnClickListener(v -> {
             // Handle click event for btn_customer_savePassword

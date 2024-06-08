@@ -6,11 +6,12 @@ public class User {
     private String fullName;
     private String password;
     private String phone;
-    private String avatarUrl = "";
+    private String avatarUrl;
     private String role; // "customer" or "hotel_owner"
 
     // Constructors
     public User() {
+        avatarUrl = ""; // Khởi tạo avatarUrl với giá trị rỗng
     }
 
     public User(String id, String email, String fullName, String password, String phone, String role) {
@@ -18,19 +19,32 @@ public class User {
         this.email = email;
         this.fullName = fullName;
         this.password = password;
-        this.phone= phone;
+        this.phone = phone;
         this.role = role;
+        this.avatarUrl = ""; // Khởi tạo avatarUrl với giá trị rỗng
     }
 
-    public User(String email, String fullName, String password, String phone, String role) {
+    public User(String id, String email, String fullName, String password, String phone, String role, String avatarUrl) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
         this.password = password;
-        this.phone= phone;
+        this.phone = phone;
         this.role = role;
+        this.avatarUrl = avatarUrl;
     }
 
+    public User(String email, String fullName, String password, String phone, String role) {
+        this.id = null; // Đảm bảo id được khởi tạo
+        this.email = email;
+        this.fullName = fullName;
+        this.password = password;
+        this.phone = phone;
+        this.role = role;
+        this.avatarUrl = ""; // Khởi tạo avatarUrl với giá trị rỗng
+    }
+
+    // Getter and setter methods
     public String getId() {
         return id;
     }

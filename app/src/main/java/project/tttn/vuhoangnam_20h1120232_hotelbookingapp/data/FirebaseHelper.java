@@ -10,9 +10,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.classes.Booking;
@@ -36,7 +40,6 @@ public class FirebaseHelper {
         mReferenceBookings = mDatabase.getReference("bookings");
         mReferenceReviews = mDatabase.getReference("reviews");
     }
-
 
     // Lấy tên tỉnh theo id
     public void getProvinceNameById(String id, final ProvinceNameCallback callback) {
@@ -173,24 +176,14 @@ public class FirebaseHelper {
 
     //adduser dùng cho việc đăng ký tài khoản
     public void addUser(User user, final UserAddCallback callback) {
-        mReferenceUsers.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long userCount = dataSnapshot.getChildrenCount();
-                String userId = String.format("user%02d", userCount + 1);
-                user.setId(userId);
-                mReferenceUsers.child(userId).setValue(user).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        callback.onSuccess();
-                    } else {
-                        callback.onError(task.getException());
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                callback.onError(databaseError.toException());
+        DatabaseReference newUserRef = mReferenceUsers.push();
+        String userId = newUserRef.getKey();
+        user.setId(userId);
+        newUserRef.setValue(user).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onSuccess();
+            } else {
+                callback.onError(task.getException());
             }
         });
     }
@@ -272,6 +265,32 @@ public class FirebaseHelper {
                 });
     }
 
+    public void updateAvatarUrl(String userId, String avatarUrl, final UserAvatarUpdateCallback callback) {
+        DatabaseReference userRef = mReferenceUsers.child(userId);
+
+        // Tạo một HashMap để lưu thông tin avatar mới
+        Map<String, Object> avatarUpdates = new HashMap<>();
+        avatarUpdates.put("avatarUrl", avatarUrl);
+
+        // Thực hiện cập nhật avatar trong cơ sở dữ liệu
+        userRef.updateChildren(avatarUpdates)
+                .addOnSuccessListener(aVoid -> {
+                    // Nếu cập nhật thành công, gọi phương thức onSuccess của callback
+                    callback.onSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    // Nếu xảy ra lỗi, gọi phương thức onError của callback và truyền lỗi đó
+                    callback.onError(e);
+                });
+    }
+
+    // Interface callback để xử lý kết quả cập nhật avatar
+    public interface UserAvatarUpdateCallback {
+        void onSuccess(); // Phương thức được gọi khi cập nhật avatar thành công
+        void onError(Exception e); // Phương thức được gọi khi xảy ra lỗi trong quá trình cập nhật avatar
+    }
+
+
     // Phương thức lấy tất cả các khách sạn
     public void getAllHotels(final HotelListCallback callback) {
         mReferenceHotels.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -316,7 +335,6 @@ public class FirebaseHelper {
         });
     }
 
-
     // phương thức getHotelsByUserId
     public void getHotelsByUserId(String userId, final HotelListCallback callback) {
         mReferenceHotels.orderByChild("ownerId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -342,44 +360,28 @@ public class FirebaseHelper {
     public void addHotel(String ownerId, String hotelName, String address, String provinceID, String amenities,
                          String imageUrlsString, int numberOfRooms, int maxGuestsPerRoom, int price,
                          final HotelAddCallback callback) {
-        // Lấy số lượng khách sạn hiện có
-        mReferenceHotels.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long hotelCount = dataSnapshot.getChildrenCount();
+        // Tạo một DatabaseReference mới để thêm khách sạn vào Firebase Realtime Database
+        DatabaseReference newHotelRef = mReferenceHotels.push();
+        String hotelId = newHotelRef.getKey();
 
-                // Tạo ID mới dựa trên số lượng khách sạn hiện có
-                String hotelId = "hotel" + String.format("%02d", hotelCount + 1);
+        Hotel newHotel = new Hotel();
+        newHotel.setId(hotelId);
+        newHotel.setOwnerId(ownerId);
+        newHotel.setName(hotelName);
+        newHotel.setAddress(address);
+        newHotel.setProvinceID(provinceID);
+        newHotel.setAmenities(amenities);
+        newHotel.setImageUrls(imageUrlsString);
+        newHotel.setNumRooms(numberOfRooms);
+        newHotel.setNumMaxGuest(maxGuestsPerRoom);
+        newHotel.setPrice(price);
 
-                // Tạo một DatabaseReference mới để thêm khách sạn vào Firebase Realtime Database
-                DatabaseReference newHotelRef = mReferenceHotels.child(hotelId);
-
-                Hotel newHotel = new Hotel();
-                newHotel.setId(hotelId);
-                newHotel.setOwnerId(ownerId);
-                newHotel.setName(hotelName);
-                newHotel.setAddress(address);
-                newHotel.setProvinceID(provinceID);
-                newHotel.setAmenities(amenities);
-                newHotel.setImageUrls(imageUrlsString);
-                newHotel.setNumRooms(numberOfRooms);
-                newHotel.setNumMaxGuest(maxGuestsPerRoom);
-                newHotel.setPrice(price);
-
-                // Thêm khách sạn vào Firebase Realtime Database
-                newHotelRef.setValue(newHotel).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        callback.onSuccess(newHotel.getId());
-                    } else {
-                        callback.onError(task.getException());
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu
-                callback.onError(databaseError.toException());
+        // Thêm khách sạn vào Firebase Realtime Database
+        newHotelRef.setValue(newHotel).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onSuccess(newHotel.getId());
+            } else {
+                callback.onError(task.getException());
             }
         });
     }
@@ -479,11 +481,11 @@ public class FirebaseHelper {
                 if (alreadySaved) {
                     callback.onAlreadyExists();
                 } else {
-                    long savedCount = dataSnapshot.getChildrenCount();
-                    String savedId = String.format("saved%02d", savedCount + 1);
+                    DatabaseReference newSavedRef = mReferenceSaved.push();
+                    String savedId = newSavedRef.getKey();
 
                     Saved newSaved = new Saved(savedId, hotelId, userId);
-                    mReferenceSaved.child(savedId).setValue(newSaved).addOnCompleteListener(task -> {
+                    newSavedRef.setValue(newSaved).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             callback.onSuccess(savedId);
                         } else {
@@ -604,55 +606,39 @@ public class FirebaseHelper {
     }
 
     public void addBooking(String userId, String hotelId, String checkInDate, String checkOutDate, int numberOfRooms, int numAdult, int numKid, int totalPrice, final BookingAddCallback callback) {
-        // Lấy số lượng khách sạn hiện có
-        mReferenceBookings.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long bookingCount = dataSnapshot.getChildrenCount();
+        // Tạo một DatabaseReference mới để thêm booking vào Firebase Realtime Database
+        DatabaseReference newBookingRef = mReferenceBookings.push();
+        String bookingId = newBookingRef.getKey();
 
-                // Tạo ID mới dựa trên số lượng khách sạn hiện có
-                String bookingId = "booking" + String.format("%02d", bookingCount + 1);
+        Booking newBooking = new Booking();
 
-                // Tạo một DatabaseReference mới để thêm khách sạn vào Firebase Realtime Database
-                DatabaseReference newBookingRef = mReferenceBookings.child(bookingId);
+        newBooking.setId(bookingId);
+        newBooking.setStatus("requestConfirm");
+        newBooking.setUserId(userId);
+        newBooking.setHotelId(hotelId);
+        newBooking.setCheckInDate(checkInDate);
+        newBooking.setCheckOutDate(checkOutDate);
+        newBooking.setNumberOfRooms(numberOfRooms);
+        newBooking.setNumAdult(numAdult);
+        newBooking.setNumKid(numKid);
+        newBooking.setTotalPrice(totalPrice);
 
-                Booking newBooking = new Booking();
-
-                newBooking.setId(bookingId);
-                newBooking.setStatus("requestConfirm");
-                newBooking.setUserId(userId);
-                newBooking.setHotelId(hotelId);
-                newBooking.setCheckInDate(checkInDate);
-                newBooking.setCheckOutDate(checkOutDate);
-                newBooking.setNumberOfRooms(numberOfRooms);
-                newBooking.setNumAdult(numAdult);
-                newBooking.setNumKid(numKid);
-                newBooking.setTotalPrice(totalPrice);
-
-                // Thêm khách sạn vào Firebase Realtime Database
-                newBookingRef.setValue(newBooking).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        callback.onSuccess(newBooking.getId());
-                    } else {
-                        callback.onError(task.getException());
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Xử lý khi có lỗi xảy ra trong quá trình đọc dữ liệu
-                callback.onError(databaseError.toException());
+        // Thêm booking vào Firebase Realtime Database
+        newBookingRef.setValue(newBooking).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onSuccess(newBooking.getId());
+            } else {
+                callback.onError(task.getException());
             }
         });
     }
 
     public void updateBookingStatus(String bookingId, String newStatus, final BookingUpdateCallback callback) {
-        // Tạo một HashMap để lưu thông tin mật khẩu mới
+        // Tạo một HashMap để lưu thông tin trạng thái mới
         Map<String, Object> statusUpdates = new HashMap<>();
         statusUpdates.put("status", newStatus);
 
-        // Thực hiện cập nhật mật khẩu trong cơ sở dữ liệu
+        // Thực hiện cập nhật trạng thái trong cơ sở dữ liệu
         mReferenceBookings.child(bookingId).updateChildren(statusUpdates)
                 .addOnSuccessListener(aVoid -> {
                     // Nếu cập nhật thành công, gọi phương thức onSuccess của callback
@@ -668,25 +654,24 @@ public class FirebaseHelper {
         mReferenceBookings.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> hotelIdWithBookingIds = new ArrayList<>();
-                Map<String, String> bookingIdMap = new HashMap<>();
+                List<String> bookingIds = new ArrayList<>();
+                Map<String, Booking> bookingMap = new HashMap<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Booking booking = snapshot.getValue(Booking.class);
                     if (booking != null && booking.getUserId().equals(userId) &&
                             ("requestConfirm".equals(booking.getStatus()) || "confirmed".equals(booking.getStatus()) || "requestComplete".equals(booking.getStatus()) || "requestCancel".equals(booking.getStatus()))) {
-                        String hotelIdWithBookingId = booking.getHotelId() + "-" + booking.getId();
-                        hotelIdWithBookingIds.add(hotelIdWithBookingId);
-                        bookingIdMap.put(hotelIdWithBookingId, booking.getId());
+                        bookingIds.add(booking.getId());
+                        bookingMap.put(booking.getId(), booking);
                     }
                 }
 
-                if (hotelIdWithBookingIds.isEmpty()) {
+                if (bookingIds.isEmpty()) {
                     callback.onSuccess(new ArrayList<>(), new HashMap<>()); // Return empty list and map if no matching bookings found
                     return;
                 }
 
-                fetchHotelDetailsWithBookingId(hotelIdWithBookingIds, bookingIdMap, callback);
+                fetchHotelDetailsWithBookingIds(bookingMap, callback);
             }
 
             @Override
@@ -700,25 +685,23 @@ public class FirebaseHelper {
         mReferenceBookings.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> hotelIdWithBookingIds = new ArrayList<>();
-                Map<String, String> bookingIdMap = new HashMap<>();
+                List<String> bookingIds = new ArrayList<>();
+                Map<String, Booking> bookingMap = new HashMap<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Booking booking = snapshot.getValue(Booking.class);
-                    if (booking != null && booking.getUserId().equals(userId) &&
-                            ("canceled".equals(booking.getStatus()))) {
-                        String hotelIdWithBookingId = booking.getHotelId() + "-" + booking.getId();
-                        hotelIdWithBookingIds.add(hotelIdWithBookingId);
-                        bookingIdMap.put(hotelIdWithBookingId, booking.getId());
+                    if (booking != null && booking.getUserId().equals(userId) && "canceled".equals(booking.getStatus())) {
+                        bookingIds.add(booking.getId());
+                        bookingMap.put(booking.getId(), booking);
                     }
                 }
 
-                if (hotelIdWithBookingIds.isEmpty()) {
+                if (bookingIds.isEmpty()) {
                     callback.onSuccess(new ArrayList<>(), new HashMap<>()); // Return empty list and map if no matching bookings found
                     return;
                 }
 
-                fetchHotelDetailsWithBookingId(hotelIdWithBookingIds, bookingIdMap, callback);
+                fetchHotelDetailsWithBookingIds(bookingMap, callback);
             }
 
             @Override
@@ -732,25 +715,23 @@ public class FirebaseHelper {
         mReferenceBookings.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> hotelIdWithBookingIds  = new ArrayList<>();
-                Map<String, String> bookingIdMap = new HashMap<>();
+                List<String> bookingIds = new ArrayList<>();
+                Map<String, Booking> bookingMap = new HashMap<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Booking booking = snapshot.getValue(Booking.class);
-                    if (booking != null && booking.getUserId().equals(userId) &&
-                            ("completed".equals(booking.getStatus()))) {
-                        String hotelIdWithBookingId = booking.getHotelId() + "-" + booking.getId();
-                        hotelIdWithBookingIds.add(hotelIdWithBookingId);
-                        bookingIdMap.put(hotelIdWithBookingId, booking.getId());
+                    if (booking != null && booking.getUserId().equals(userId) && "completed".equals(booking.getStatus())) {
+                        bookingIds.add(booking.getId());
+                        bookingMap.put(booking.getId(), booking);
                     }
                 }
 
-                if (hotelIdWithBookingIds.isEmpty()) {
+                if (bookingIds.isEmpty()) {
                     callback.onSuccess(new ArrayList<>(), new HashMap<>()); // Return empty list and map if no matching bookings found
                     return;
                 }
 
-                fetchHotelDetailsWithBookingId(hotelIdWithBookingIds, bookingIdMap, callback);
+                fetchHotelDetailsWithBookingIds(bookingMap, callback);
             }
 
             @Override
@@ -760,7 +741,7 @@ public class FirebaseHelper {
         });
     }
 
-    private void fetchHotelDetailsWithBookingId(List<String> hotelIdWithBookingIds, Map<String, String> bookingIdMap, final HotelListWithBookingIdCallback callback) {
+    private void fetchHotelDetailsWithBookingIds(Map<String, Booking> bookingMap, final HotelListWithBookingIdCallback callback) {
         mReferenceHotels.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -770,12 +751,12 @@ public class FirebaseHelper {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Hotel hotel = snapshot.getValue(Hotel.class);
                     if (hotel != null) {
-                        for (String hotelIdWithBookingId : hotelIdWithBookingIds) {
-                            String[] parts = hotelIdWithBookingId.split("-");
-                            String hotelId = parts[0];
-                            if (hotel.getId().equals(hotelId)) {
+                        for (Map.Entry<String, Booking> entry : bookingMap.entrySet()) {
+                            String bookingId = entry.getKey();
+                            Booking booking = entry.getValue();
+                            if (hotel.getId().equals(booking.getHotelId())) {
                                 hotels.add(hotel);
-                                hotelBookingIdMap.put(hotelIdWithBookingId, bookingIdMap.get(hotelIdWithBookingId));
+                                hotelBookingIdMap.put(hotel.getId(), bookingId);
                             }
                         }
                     }
@@ -790,7 +771,6 @@ public class FirebaseHelper {
             }
         });
     }
-
 
     public void getBookingById(String bookingId, BookingCallback callback) {
         mReferenceBookings.child(bookingId).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1001,24 +981,14 @@ public class FirebaseHelper {
 
     // Phương thức thêm review
     public void addReview(final Review review, final ReviewAddCallback callback) {
-        mReferenceReviews.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long reviewCount = dataSnapshot.getChildrenCount();
-                String reviewId = String.format("review%02d", reviewCount + 1);
-                review.setReviewId(reviewId);
-                mReferenceReviews.child(reviewId).setValue(review).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        callback.onSuccess();
-                    } else {
-                        callback.onFailure(task.getException());
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                callback.onFailure(databaseError.toException());
+        DatabaseReference newReviewRef = mReferenceReviews.push();
+        String reviewId = newReviewRef.getKey();
+        review.setReviewId(reviewId);
+        newReviewRef.setValue(review).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onSuccess();
+            } else {
+                callback.onFailure(task.getException());
             }
         });
     }
@@ -1046,13 +1016,128 @@ public class FirebaseHelper {
         });
     }
 
+    public void getReviewsByUserMail(String userMail, final ReviewCallback callback) {
+        mReferenceReviews.orderByChild("userMail").equalTo(userMail).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Review> reviews = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Review review = snapshot.getValue(Review.class);
+                    if (review != null) {
+                        reviews.add(review);
+                    }
+                }
+                callback.onSuccess(reviews);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                callback.onFailure(databaseError.toException());
+            }
+        });
+    }
+
+    public void updateExpiredBookings() {
+        mReferenceBookings.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long currentTime = System.currentTimeMillis();
+                List<String> expiredBookings = new ArrayList<>();
+                Map<String, String> statusUpdates = new HashMap<>();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Booking booking = snapshot.getValue(Booking.class);
+                    if (booking != null) {
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                            Date checkOutDate = sdf.parse(booking.getCheckOutDate());
+                            if (checkOutDate != null) {
+                                long checkOutTime = checkOutDate.getTime();
+                                long diffInDays = (currentTime - checkOutTime) / (1000 * 60 * 60 * 24);
+                                if (diffInDays > 2) {
+                                    String currentStatus = booking.getStatus();
+                                    if (!"canceled".equals(currentStatus) && !"completed".equals(currentStatus)) {
+                                        String newStatus = null;
+                                        if ("confirmed".equals(currentStatus) || "requestComplete".equals(currentStatus)) {
+                                            newStatus = "completed";
+                                        } else if ("requestConfirm".equals(currentStatus) || "requestCancel".equals(currentStatus)) {
+                                            newStatus = "canceled";
+                                        }
+                                        if (newStatus != null) {
+                                            expiredBookings.add(booking.getId());
+                                            statusUpdates.put(booking.getId(), newStatus);
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (ParseException e) {
+                            Log.e("UpdateExpiredBookings", "Error parsing date: " + e.getMessage());
+                        }
+                    }
+                }
+
+                for (String bookingId : expiredBookings) {
+                    String newStatus = statusUpdates.get(bookingId);
+                    if (newStatus != null) {
+                        updateBookingStatus(bookingId, newStatus, new BookingUpdateCallback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d("UpdateExpiredBookings", "Booking ID " + bookingId + " updated to " + newStatus);
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                Log.e("UpdateExpiredBookings", "Error updating booking ID " + bookingId + ": " + e.getMessage());
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("UpdateExpiredBookings", "Error accessing database: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    public void updateHotelRate(String hotelId, int newReviewRating) {
+        // Lấy thông tin khách sạn từ Firebase
+        mReferenceHotels.child(hotelId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Hotel hotel = dataSnapshot.getValue(Hotel.class);
+                    if (hotel != null) {
+                        // Tăng số lượng đánh giá lên 1
+                        int numReviews = hotel.getNumReviews() + 1;
+
+                        // Tính toán xếp hạng trung bình mới
+                        double totalRating = hotel.getRate() * hotel.getNumReviews();
+                        totalRating += newReviewRating;
+                        double newRate = totalRating / numReviews;
+
+                        // Cập nhật thông tin khách sạn trong Firebase
+                        mReferenceHotels.child(hotelId).child("numReviews").setValue(numReviews);
+                        mReferenceHotels.child(hotelId).child("rate").setValue(newRate);
+                    }
+                } else {
+                    Log.e("updateHotelRate", "Hotel not found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("updateHotelRate", "Error: " + databaseError.getMessage());
+            }
+        });
+    }
+
     // Callback interface for review check
     public interface ReviewCheckCallback {
         void onCallback(boolean isDuplicate);
         void onError(Exception e);
     }
-
-
 
     public interface ReviewAddCallback {
         void onSuccess();
@@ -1064,7 +1149,6 @@ public class FirebaseHelper {
         void onFailure(Exception e);
     }
 
-
     public interface BookingCallback {
         void onSuccess(Booking booking);
         void onError(Exception e);
@@ -1075,7 +1159,6 @@ public class FirebaseHelper {
         void onSuccess(List<Hotel> hotels, Map<String, String> bookingIdMap);
         void onError(Exception e);
     }
-
 
     // Callback interface for addBooking method
     public interface BookingAddCallback {

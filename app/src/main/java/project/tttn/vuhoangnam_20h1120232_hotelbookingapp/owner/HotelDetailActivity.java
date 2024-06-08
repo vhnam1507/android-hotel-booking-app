@@ -105,7 +105,9 @@ public class HotelDetailActivity extends AppCompatActivity {
                 intent.getStringExtra("hotelImageUrls"),
                 intent.getIntExtra("hotelNumRooms", 0),
                 intent.getIntExtra("hotelNumMaxGuest", 0),
-                intent.getIntExtra("hotelPrice", 0)
+                intent.getIntExtra("hotelPrice", 0),
+                intent.getIntExtra("hotelNumReviews", 0),
+                intent.getIntExtra("hotelRate", 0)
         );
 
         int posit = Integer.parseInt(selectedHotel.getProvinceID().substring("province".length()));

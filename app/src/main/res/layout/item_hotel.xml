@@ -53,16 +53,16 @@
                     android:layout_width="69dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Rate" />
 
                 <TextView
-                    android:id="@+id/tv_totalrate"
-                    android:layout_width="197dp"
+                    android:id="@+id/tv_numReviews"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="3"
                     android:fontFamily="@font/fira_sans_medium"

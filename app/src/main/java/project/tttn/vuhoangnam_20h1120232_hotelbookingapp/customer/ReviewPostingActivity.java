@@ -103,6 +103,8 @@ public class ReviewPostingActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 Log.d("ReviewPostingActivity", "Review đã được thêm thành công");
+                                // Cập nhật đánh giá của khách sạn
+                                firebaseHelper.updateHotelRate(hotelId, rate);
                                 finish();
                             }
 

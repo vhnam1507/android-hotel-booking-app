@@ -50,6 +50,8 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
             TextView tv_Address = convertView.findViewById(R.id.tv_address);
             TextView tv_price = convertView.findViewById(R.id.tv_price);
             TextView tv_extra = convertView.findViewById(R.id.tv_extra);
+            TextView tv_rate = convertView.findViewById(R.id.tv_rate);
+            TextView tv_numReviews = convertView.findViewById(R.id.tv_numReviews);
             ImageView iv_cover = convertView.findViewById(R.id.imgvw_cover);
 
             String address = hotel.getAddress();
@@ -88,6 +90,8 @@ public class HotelAdapter extends ArrayAdapter<Hotel> {
             tv_Name.setText(hotel.getName());
             tv_price.setText(formattedPrice);
             tv_extra.setText(formattedAmenities.toString());
+            tv_rate.setText("Rate: " + String.valueOf(hotel.getRate()));
+            tv_numReviews.setText("Lượt rate: " + String.valueOf(hotel.getNumReviews()));
 
             String url = hotel.getImageUrls().split(",")[0].trim();
             Picasso.get()

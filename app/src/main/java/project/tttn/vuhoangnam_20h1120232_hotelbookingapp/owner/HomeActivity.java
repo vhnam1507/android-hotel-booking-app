@@ -2,15 +2,19 @@ package project.tttn.vuhoangnam_20h1120232_hotelbookingapp.owner;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -19,6 +23,8 @@ import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.authen.CurrentUserMana
 import project.tttn.vuhoangnam_20h1120232_hotelbookingapp.authen.LoginActivity;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private ImageView iv_avatar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,20 @@ public class HomeActivity extends AppCompatActivity {
         CardView bookingListCard = findViewById(R.id.bookingListCard);
         TextView txtv_ownerFullName = findViewById(R.id.txtv_ownerFullName);
         TextView txtv_ownerEmail = findViewById(R.id.txtv_ownerEmail);
+        iv_avatar = findViewById(R.id.iv_avatar);
+
+        String avatarUrl = currentUserManager.getAvatarUrl();
+        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+            Picasso.get()
+                    .load(Uri.parse(avatarUrl))
+                    .placeholder(R.drawable.app) // Placeholder image
+                    .error(R.drawable.app) // Error image
+                    .into(iv_avatar);
+        } else {
+            Picasso.get()
+                    .load(R.drawable.app) // Default image
+                    .into(iv_avatar);
+        }
 
         txtv_ownerFullName.setText(currentUserManager.getUserFullName());
         txtv_ownerEmail.setText(currentUserManager.getUserEmail());

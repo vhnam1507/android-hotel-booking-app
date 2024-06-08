@@ -88,6 +88,8 @@ public class HotelListActivity extends AppCompatActivity {
                 intent.putExtra("hotelNumRooms", selectedHotel.getNumRooms());
                 intent.putExtra("hotelNumMaxGuest", selectedHotel.getNumMaxGuest());
                 intent.putExtra("hotelPrice", selectedHotel.getPrice());
+                intent.putExtra("hotelRate", selectedHotel.getRate());
+                intent.putExtra("hotelNumReviews", selectedHotel.getNumReviews());
 
                 // Start HotelDetailActivity
                 startActivity(intent);
